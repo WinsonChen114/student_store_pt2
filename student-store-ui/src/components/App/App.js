@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 import { BrowserRouter, Routes, Route } from "react-router-dom"
-import apiClient from "../../../services/apiClient"
+import apiClient from "../../services/apiClient"
 import Home from "../Home/Home"
 import Signup from "../Signup/Signup"
 import Login from "../Login/Login"

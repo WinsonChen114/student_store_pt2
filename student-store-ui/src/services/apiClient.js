@@ -47,12 +47,12 @@ class ApiClient {
     }
 
     static async fetchUserFromToken() {
-        let response = await this.request({ endpoint: "auth/me" })
+        let response = await this.request({ endpoint: "auth/me", method: "GET" })
         return response
     }
 
     static async listProducts() {
-        let response = await this.request({ endpoint: "store" })
+        let response = await this.request({ endpoint: "store", method: "GET" })
         return response
     }
 

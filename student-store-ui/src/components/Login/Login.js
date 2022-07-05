@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
-import apiClient from "../../../services/apiClient"
+import apiClient from "../../services/apiClient"
 import "./Login.css"
 
 export default function Login({ user, setUser }) {
