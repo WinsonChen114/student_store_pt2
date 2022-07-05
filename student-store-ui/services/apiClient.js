@@ -14,7 +14,7 @@ class ApiClient {
     }
 
     //Helper function to make a call to API
-    static async request({endpoint, method="GET", data}) {
+    static async request({ endpoint, method = "GET", data }) {
         const url = `${this.remoteHostUrl}/${endpoint}`
 
         const headers = {
@@ -46,13 +46,17 @@ class ApiClient {
         return response
     }
 
-    static async listProducts() {
-        let response = await this.request({ endpoint: "store/"})
+    static async fetchUserFromToken() {
+        let response = await this.request({ endpoint: "auth/me" })
         return response
     }
 
-    static async checkout(cart)
-    {
+    static async listProducts() {
+        let response = await this.request({ endpoint: "store" })
+        return response
+    }
+
+    static async checkout(cart) {
         let response = await this.request({ endpoint: "orders", method: "POST", data: cart })
         return response
     }

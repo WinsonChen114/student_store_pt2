@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react"
 import { BrowserRouter, Routes, Route } from "react-router-dom"
-import axios from "axios"
 import apiClient from "../../../services/apiClient"
 import Home from "../Home/Home"
 import Signup from "../Signup/Signup"
@@ -33,12 +32,11 @@ export default function App() {
 
   const handleOnCheckout = async () => {
     setIsCheckingOut(true)
-    const {data, error} = await apiClient.checkout(cart)
-    if(error){
-      setError((e) => ({...e, form: error}))
+    const { data, error } = await apiClient.checkout(cart)
+    if (error) {
+      setError((e) => ({ ...e, form: error }))
     }
-    if(data?.order)
-    {
+    if (data?.order) {
       setOrders((o) => [...data.order, ...o])
       setCart({})
 
@@ -49,17 +47,34 @@ export default function App() {
   useEffect(() => {
     const fetchProducts = async () => {
       setIsFetching(true)
-      const {data, error} = await apiClient.listProducts()
-      if(error){
-        setError((e) => ({...e, form: error}))
+      const { data, error } = await apiClient.listProducts()
+      if (error) {
+        setError(error)
       }
-      if(data?.products)
-      {
+      if (data?.products) {
         setProducts(data.products)
       }
       setIsFetching(false)
     }
     fetchProducts()
+  }, [])
+
+  useEffect(() => {
+    const fetchAuthedUser = async () => {
+      const { data, error } = await apiClient.fetchUserFromToken()
+      if (error) {
+        setError(error)
+      }
+      if (data?.user) {
+        setProducts(data.user)
+      }
+    }
+    const token = localStorage.getItem("student_store_token")
+    if(token)
+    {
+      apiClient.setToken(token)
+      fetchAuthedUser()
+    }
   }, [])
 
   return (
